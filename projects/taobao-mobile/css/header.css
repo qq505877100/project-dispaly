@@ -1,0 +1,32 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgb(255, 133, 42);
+}
+
+.header .header-bg {
+  padding: 6px 9px 6px 42px;
+  background-image: url(../images/header/tao.png);
+  background-repeat: no-repeat;
+  background-size: 27px 20px;
+  background-position: 9px center;
+}
+.header .header-bg .search {
+  display: block;
+  text-align: center;
+  border-radius: 4px;
+  background-color: rgb(255, 78, 34);
+}
+
+.header .header-bg .search .icon-search {
+  color: white;
+}
+.header .header-bg .search .search-text {
+  display: inline-block;
+  height: 25px;
+  line-height: 25px;
+  font-size: 13px;
+  color: rgb(240, 224, 220);
+}
