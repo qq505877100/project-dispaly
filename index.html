@@ -1,11 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <h1>hello world</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+      * {
+        margin: 0;
+      }
+      .container {
+        position: relative;
+        width: 80px;
+        height: 80px;
+        margin: 20px auto 0;
+        border: 1px solid #999;
+        /* transition: all 1s; */
+      }
+      .top,
+      .center,
+      .bottom {
+        height: 6px;
+        width: 60px;
+        background-color: orange;
+        transition: all 1s;
+      }
+
+      .top {
+        position: absolute;
+        left: calc(50% - 30px);
+        top: 10px;
+      }
+      .center {
+        position: absolute;
+        left: calc(50% - 30px);
+        top: calc(50% - 3px);
+      }
+      .bottom {
+        position: absolute;
+        left: calc(50% - 30px);
+        bottom: 10px;
+      }
+      /* 步骤1 合*/
+      .container.step1 .top {
+        top: calc(50% - 3px);
+      }
+
+      .container.step1 .bottom {
+        bottom: calc(50% - 3px);
+      }
+
+      /* 步骤2 交叉*/
+      .container.step2 .top {
+        top: calc(50% - 3px);
+        transform: rotate(45deg);
+      }
+
+      .container.step2 .center {
+        /* display: none; */
+        /* visibility: hidden; */
+      }
+
+      .container.step2 .bottom {
+        transform: rotate(-45deg);
+        bottom: calc(50% - 3px);
+      }
+
+      /* 步骤3 合拢*/
+      .container.step3 .top {
+        top: calc(50% - 3px);
+        transform: rotate(0);
+      }
+
+      .container.step3 .center {
+        /* display: block; */
+        /* visibility: visible; */
+      }
+
+      .container.step3 .bottom {
+        bottom: calc(50% - 3px);
+        transform: rotate(0);
+      }
+
+      /* 步骤4 */
+      .container.step4 .top {
+        top: 10px;
+      }
+
+      .container.step4 .bottom {
+        bottom: 10px;
+      }
+      .hide {
+        display: none;
+      }
+      .show {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="top"></div>
+      <div class="center"></div>
+      <div class="bottom"></div>
+    </div>
+    <script>
+      /* 
+        1 遇到那个隐藏中间元素的时候，总是会一闪出现，影响效果
+        解决方案：使用transitionend事件，当动画结束后，手动添加class让它隐藏/显示
+      */
+      const defaultClass = 'container';
+      const container = document.querySelector(`.${defaultClass}`);
+      const center = document.querySelector(`.center`);
+      const classes = ['step1', 'step2', 'step3', 'step4'];
+      let index = 0;
+      window.addEventListener('transitionend', (e) => {
+        console.log(e);
+        if (index % classes.length === 1) {
+          center.classList.remove('show');
+          center.classList.add('hide');
+        }
+
+        if (index % classes.length === 3) {
+          center.classList.remove('hide');
+          center.classList.add('show');
+        }
+      });
+      setInterval(() => {
+        container.className = `${defaultClass} ${
+          classes[index++ % classes.length]
+        }`;
+      }, 1200);
+    </script>
+  </body>
 </html>
