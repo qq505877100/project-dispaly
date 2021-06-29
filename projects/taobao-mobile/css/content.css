@@ -37,9 +37,12 @@
 
 .container .content .top-menus .menus-container .menus {
   display: flex;
-  margin-left: 12px;
-  overflow-x: auto;
+  overflow-x: hidden;
   overflow-y: hidden;
+}
+
+.container .content .top-menus .menus-container .menus .menus-content {
+  display: flex;
 }
 
 .container .content .top-menus .menus-container .menus .menu-item {
@@ -85,12 +88,16 @@
 }
 
 .menus-operators {
-  display: flex;
+  position: relative;
+  width: 60px;
+  height: 3px;
   background-color: rgb(212, 216, 222);
 }
 .operator-item {
+  position: absolute;
+  left: 0;
   width: 20px;
-  height: 3px;
+  height: 100%;
 }
 
 .operator-item.active {
@@ -102,7 +109,7 @@
   background-color: white;
 }
 
-.brand img{
+.brand img {
   width: 100%;
 }
 
@@ -206,4 +213,8 @@
 .like .recommand-item .recommand-item-info .price-box .num {
   font-size: 12px;
   color: #999;
+}
+
+.menus::-webkit-scrollbar {
+  display: none;
 }
