@@ -119,6 +119,7 @@
       let index = 0;
       window.addEventListener('transitionend', (e) => {
         console.log(e);
+        e.preventDefault
         if (index % classes.length === 1) {
           center.classList.remove('show');
           center.classList.add('hide');
