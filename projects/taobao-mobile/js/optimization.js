@@ -4,7 +4,7 @@ function Scroll(container, imgList) {
   // 每列的宽度
   this.itemWidth = 73;
   // 滑块可以滚动的长度
-  this.operatorsDomScrollDistance = 60 - 20;
+  this.operatorsDomScrollDistance = 0;
   this.operatorsDomScrollLeft = 0;
   // 内容区可以滚动的长度
   this.menusContenScrollDistance;
@@ -28,6 +28,23 @@ function Scroll(container, imgList) {
     }, []);
   };
 
+  this.ininData = function () {
+    // 容器宽度
+    const containerWidth = this.container.getBoundingClientRect().width;
+    // 菜单内容总宽度
+    const contentWidth = Math.ceil(this.imgList.length / 2) * this.itemWidth;
+    this.menusContenScrollDistance = contentWidth - containerWidth;
+    const percent = containerWidth / contentWidth;
+    const width = Math.max(10, Math.floor(percent * 60));
+    const canScroll = this.menusContenScrollDistance > 0;
+    if (canScroll) {
+      this.operatorsDomScrollDistance = 60 - width;
+      this.operatorItemDom.style.width = `${width}px`;
+    } else {
+      this.operatorsDom.style.display = 'none';
+    }
+  };
+
   this.init = function () {
     if (typeof this.container === 'string') {
       this.container = document.querySelector(container);
@@ -38,14 +55,11 @@ function Scroll(container, imgList) {
     if (!this.imgList) {
       return new Error('imgList属性为空，初始化失败！');
     }
-    // 容器宽度
-    const containerWidth = this.container.getBoundingClientRect().width;
-    // 菜单内容总宽度
-    const contentWidth = Math.ceil(imgList.length / 2) * this.itemWidth;
-    this.menusContenScrollDistance = contentWidth - containerWidth;
+
     this.changeData();
     this.generateDoms();
     this.bindEvents();
+    this.ininData();
   };
 
   this.createItemDom = function (imgs) {
@@ -142,7 +156,7 @@ function Scroll(container, imgList) {
     this.menusDomScrollToLeftByOffset(scrollPercent, true);
     this.operatorsDomScrollToLeftByOffset(offset);
   };
-  
+
   this._bindEvent = function (dom, scrollCallback) {
     let clientX;
     const touchstart = (e) => {
