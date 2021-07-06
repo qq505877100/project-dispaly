@@ -1,3 +1,9 @@
+/**
+  封装：这里封装了一个可滚动的图片列表容器
+  局限性：它只适用于图片展示的这种情况，并且在这里我已经写死了容器内内容，必须是
+  上下结构的图片列表，那么当下次需要一列图片的情况，这里就不适用了，
+  所以这种封装方式不是很好。
+ */
 function Scroll(container, imgList) {
   this.container = container;
   this.imgList = imgList;

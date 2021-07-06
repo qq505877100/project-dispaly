@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="./css/content.css" />
     <link rel="stylesheet" href="./css/footer.css" />
     <link rel="stylesheet" href="./css/header.css" />
+   
   </head>
   <body>
     <div class="container">
@@ -35,8 +36,8 @@
               <img src="./images/content/lunbo1.jpg" alt="" />
             </a>
           </div>
-          <div class="menus-container"></div>
-          <div class="menus-container2">
+          <div class="menus-container2"></div>
+          <div class="menus-container">
             <div class="top-line"></div>
             <div class="menus">
               <div class="menus-content">
@@ -187,11 +188,11 @@
               </div>
             </div>
             <div class="menus-operators-container">
-              <div class="menus-operators">
+              <!-- <div class="menus-operators">
                 <div class="operator-item active"></div>
-                <!-- <div class="operator-item"></div>
-                <div class="operator-item"></div> -->
-              </div>
+                <div class="operator-item"></div>
+                <div class="operator-item"></div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -675,13 +676,17 @@
       </div>
     </div>
     <script src="./js/optimization.js"></script>
+    <script src="./js/optimization2.js"></script>
+
     <script>
       const imgList = new Array(40).fill(1).map(() => ({
         url:
           'https://gw.alicdn.com/tfs/TB1OIxTcLc3T1VjSZLeXXbZsVXa-183-144.png?getAvatar=1',
         text: '天猫新品',
       }));
-      const s = new Scroll('.menus-container', imgList);
+      const menusContainer = document.querySelector('.menus-container');
+      // const s = new Scroll('.menus-container2', imgList);
+      scroll2(menusContainer);
     </script>
   </body>
 </html>

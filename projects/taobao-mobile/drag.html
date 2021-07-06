@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #drag {
+        margin: 50px auto;
+        position: relative;
+        width: 50px;
+        height: 50px;
+        background-color: orange;
+      }
+      .position-container {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        /* left: -5px;
+        top: -5px; */
+      }
+      .drag-dom {
+        width: 8px;
+        height: 8px;
+        border: 1px solid #009dff;
+        background-color: white;
+      }
+      .drag-dom:hover {
+        background-color: #009dff;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="drag">drag
+      <!-- <div class="position-container">
+        <div class="drag-dom"></div>
+      </div> -->
+    </div>
+    <script src="./js/utils.js"></script>
+    <script src="./js/drag.js"></script>
+    <script>
+      drag('#drag', {
+        resizePosition: 'left top',
+        // resizePosition: 'left bottom',
+        // resizePosition: 'right top',
+      });
+      
+    </script>
+  </body>
+</html>
