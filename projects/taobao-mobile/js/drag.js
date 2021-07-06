@@ -114,7 +114,6 @@ function drag(container, options) {
       containerDx += dx;
       containerDy += dy;
       container.style.transform = `translate(${containerDx}px, ${containerDy}px)`;
-      // console.log('我是拖动父容器进行拖拽');
       changeResizePosition(dx, dy, true);
     };
     const _onDragEnd = (e, delta) => {
@@ -236,15 +235,14 @@ function drag(container, options) {
       default:
         break;
     }
-    // console.log('containerWidth', containerWidth);
-    // console.log('containerWidth', containerHeight);
-
     // 宽度限制
-    if (containerWidth <= MIN_WIDTH) {
-      resizeDomPositon.left = beforeLeft + realDx;
-    }
-    if (containerHeight <= MIN_HEIGHT) {
-      resizeDomPositon.top = beforeTop + realDy;
+    if (!isDrag) {
+      if (containerWidth <= MIN_WIDTH) {
+        resizeDomPositon.left = beforeLeft + realDx;
+      }
+      if (containerHeight <= MIN_HEIGHT) {
+        resizeDomPositon.top = beforeTop + realDy;
+      }
     }
     resizeContainerDom.style.left = `${resizeDomPositon.left}px`;
     resizeContainerDom.style.top = `${resizeDomPositon.top}px`;
@@ -253,6 +251,9 @@ function drag(container, options) {
   const bindResize = () => {
     const _onDrag = (e, delta) => {
       const { dx, dy } = delta;
+      console.log('dx, dy');
+      console.log(dx, dy);
+
       // 改变容器的width、height
       changeContainerWidth(dx, dy);
       // 同步容器的坐标，保证宽高在变化的时候，坐标值不变

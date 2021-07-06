@@ -1,3 +1,32 @@
+function throttle(func, wait, options = {}) {
+  let timeout,
+    previous = 0;
+
+  return function () {
+    let now = +new Date();
+    let remain = wait - (now - previous);
+
+    if (remain < 0) {
+      if (previous === 0 && !options.begin) {
+        previous = now;
+        return;
+      }
+
+      if (timeout) {
+        clearTimeout(timeout);
+        timeout = null;
+      }
+
+      previous = now;
+      func.apply(this, arguments);
+    } else if (!timeout && options.end) {
+      timeout = setTimeout(() => {
+        func.apply(this, arguments);
+        timeout = null;
+      }, wait);
+    }
+  };
+}
 /**
  * 给元素绑定mousedown/mousemove/mouseup事件（也就是拖拽事件）
  * 动态的计算每次move时x/y方向上的偏移量
@@ -31,7 +60,7 @@ const dragProxy = (dom, onDragStart, onDrag, onDragEnd) => {
     onDragStart(e);
   };
 
-  const mousemove = (e) => {
+  let mousemove = (e) => {
     e.preventDefault();
     const currentPageX = e.pageX;
     const currentPageY = e.pageY;
@@ -45,6 +74,7 @@ const dragProxy = (dom, onDragStart, onDrag, onDragEnd) => {
     };
     onDrag(e, delta);
   };
+  mousemove = throttle(mousemove, 16);
 
   const mouseend = (e) => {
     e.preventDefault();
