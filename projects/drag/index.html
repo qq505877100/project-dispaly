@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
+      html,body {
+        height: 100%;
+      }
+      * {
+        margin: 0;
+      }
       .resize-container {
         position: absolute;
         width: 10px;
@@ -84,10 +90,10 @@
       new Drag({
         // parent: Node,
         position: { x: 10, y: 20 },
-        target: 'top',
+        // target: 'bottom',
         // resizePosition: 'left top',
         // resizePosition: 'left bottom',
-        resizePosition: 'right top',
+        // resizePosition: 'right top',
         headerStyle: {},
         contentStyle: {},
         onDragStart: function (e, options) {},

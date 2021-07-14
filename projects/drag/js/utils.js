@@ -49,8 +49,12 @@ const dragProxy = (dom, onDragStart, onDrag, onDragEnd) => {
   const mousestart = (e) => {
     e.stopPropagation();
     e.preventDefault();
-    console.log(e.target !== dom);
-    if (e.target !== dom) {
+    // console.log(e.target !== dom);
+    /* if (e.target !== dom) {
+      return;
+    } */
+    console.log(isParent(dom, e.target));
+    if (!isParent(dom, e.target)) {
       return;
     }
     pageX = e.pageX;
@@ -128,3 +132,26 @@ const dragProxy2 = (onDrag, onDragEnd) => {
   window.addEventListener('mousemove', mousemove);
   window.addEventListener('mouseup', mouseend);
 };
+
+// 判断两个矩形是否相交 {width:0, height: 0, centerX: 3, centerY: 7}
+const isIntersectRect = (rect1, rect2, offsetX = 0, offsetY = 0) => {
+  return (
+    Math.abs(rect1.centerX - rect2.centerX) <
+      rect1.width / 2 + rect2.width / 2 - offsetX &&
+    Math.abs(rect1.centerY - rect2.centerY) <
+      rect1.height / 2 + rect2.height / 2 - offsetY
+  );
+};
+
+const isParent = (parent, child) => {
+  let result = false;
+  let dom = child;
+  while(dom) {
+    if (parent === dom) {
+      result = true;
+      break;
+    }
+    dom = dom.parentElement;
+  }
+  return result;
+}
