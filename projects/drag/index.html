@@ -53,6 +53,11 @@
         width: 100%;
         flex: 1;
       }
+      .parent {
+        width: 60%;
+        height: 60%;
+        border: 1px solid red;
+      }
     </style>
   </head>
   <body>
@@ -65,6 +70,7 @@
       <div class="header"></div>
       <div class="content">sdlfjksldfkj sdlfjsldfjk sdfslkdfj</div>
     </div> -->
+    <div class="parent"></div>
 
     <script src="./js/utils.js"></script>
     <script src="./js/drag.js"></script>
@@ -75,7 +81,7 @@
         // resizePosition: 'left bottom',
         // resizePosition: 'right top',
       }); */
-      new Drag({
+      /* new Drag({
         // parent: Node,
         position: { x: 10, y: 20 },
         target: 'top',
@@ -86,9 +92,9 @@
         contentStyle: {},
         onDragStart: function (e, options) {},
         isThrottle: true,
-      });
+      }); */
       new Drag({
-        // parent: Node,
+        parent: document.querySelector('.parent'),
         position: { x: 10, y: 20 },
         // target: 'bottom',
         // resizePosition: 'left top',

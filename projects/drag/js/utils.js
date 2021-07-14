@@ -53,7 +53,7 @@ const dragProxy = (dom, onDragStart, onDrag, onDragEnd) => {
     /* if (e.target !== dom) {
       return;
     } */
-    console.log(isParent(dom, e.target));
+    // console.log(isParent(dom, e.target));
     if (!isParent(dom, e.target)) {
       return;
     }
@@ -117,8 +117,6 @@ const dragProxy2 = (onDrag, onDragEnd) => {
       x,
       y,
     };
-    console.log('func22');
-    console.log(delta);
     onDrag(e, delta);
   };
 

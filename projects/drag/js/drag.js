@@ -61,15 +61,14 @@ function Drag(options) {
   this.containerDx = this.options.position.x;
   this.containerDy = this.options.position.y;
   // 容器的真实坐标值（容器真正的坐标值）
-  this.containerCurrDx = this.containerDx;
-  this.containerCurrDy = this.containerDy;
+  this.currContainerDx = this.containerDx;
+  this.currContainerDy = this.containerDy;
   // 容器的宽高值
   this.containerWidth = 0;
   this.containerHeight = 0;
   // 容器在宽高缩放时，真正增加或减少的增量
   this.realDx = 0;
   this.realDy = 0;
-
   this.init();
 }
 
@@ -85,12 +84,7 @@ Drag.prototype.init = function () {
       this.options.onDragStart(e);
     },
     (e, delta) => {
-      const minLeft = -this.containerWidth / 2;
-      const maxLeft = this.parentRect.width - this.containerWidth / 2;
-
       let { dx, dy } = delta;
-      const beforeContainerDx = this.containerDx;
-      const beforeContainerDy = this.containerDy;
       this.containerDx += dx;
       this.containerDy += dy;
       // 实现一个两个矩形相交的算法即可
@@ -109,25 +103,20 @@ Drag.prototype.init = function () {
       if (!isIntersect) {
         return;
       }
-      dx = this.containerDx - this.containerCurrDx;
-      dy = this.containerDy - this.containerCurrDy;
+      dx = this.containerDx - this.currContainerDx;
+      dy = this.containerDy - this.currContainerDy;
       this.container.style.left = `${this.containerDx}px`;
       this.container.style.top = `${this.containerDy}px`;
-      this.containerCurrDx = this.containerDx;
-      this.containerCurrDy = this.containerDy;
-
-      // 矫正一下偏移量
-      /* if (beforeContainerDx <= minLeft) {
-        dx = this.containerDx - minLeft
-      }
-      if (beforeContainerDx >= maxLeft) {
-        dx = maxLeft - this.containerDx;
-      } */
+      this.currContainerDx = this.containerDx;
+      this.currContainerDy = this.containerDy;
       this.changeResizePosition(dx, dy);
     },
     (e, delta) => {
       this.container.classList.remove(this.draggingClassName);
       this.resizeContainerDom.classList.remove(this.draggingClassName);
+      // 重置坐标值
+      this.containerDx = this.currContainerDx;
+      this.containerDy = this.currContainerDy;
       this.options.onDragEnd(e, delta);
     }
   );
@@ -208,10 +197,8 @@ Drag.prototype.generateDoms = function () {
     this.container = createElement('div', 'drag-container');
     this.headerDom = createElement('div', 'header');
     this.contentDom = createElement('div', 'content');
-
     this.container.appendChild(this.headerDom);
     this.container.appendChild(this.contentDom);
-
     this.container.style.left = `${this.containerDx}px`;
     this.container.style.top = `${this.containerDy}px`;
 
@@ -267,7 +254,6 @@ Drag.prototype.generateDoms = function () {
     this.resizeContainerDom.appendChild(this.dragResizeDom);
     this.container.parentElement.appendChild(this.resizeContainerDom);
   };
-
   _generateContentDom();
   _generateResizeDom();
 };
